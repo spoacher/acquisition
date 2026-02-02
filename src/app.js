@@ -7,6 +7,8 @@ import cookieParser from 'cookie-parser';
 
 import authRoutes from '#routes/auth.routes.js';
 
+import securityMiddleware from '#middleware/security.middleware.js';
+
 const app = express();
 
 app.use(helmet());
@@ -19,6 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(morgan('combined', { stream: { write: msg => logger.info(msg.trim()) } }));
+
+app.use(securityMiddleware); 
 
 app.get('/', (req, res) => {
   logger.info('Hello! from acquisition app');
